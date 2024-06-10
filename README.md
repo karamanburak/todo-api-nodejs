@@ -1,1 +1,1 @@
-# todo-api-nodejs
+# todo project with sequelize

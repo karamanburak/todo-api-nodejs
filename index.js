@@ -44,8 +44,32 @@ const Todo = sequelize.define('todos', {
     //     defaultValue: 'default value'
     // }
 
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: DataTypes.TEXT, // just type
+    priority: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: 0       // -1:Low, 0:Normal, 1:High
+    },
+    isDone: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
+    //! createdDate & updatedDate auto generated
+    // createdDate:{type:DataTypes.DATE},
+
 })
 
+// sequelize.sync() //! run once
+// sequelize.sync({ force: true }) //! DROP tables then CREATE tables
+// sequelize.sync({ alter: true }) //! BACKUP DB then DROP tables then CREATE tables then RECOVERY
+
+
+sequelize.authenticate() // connect to db
+    .then(() => console.log('Todo DB connected')).catch(() => console.log('Todo DB NOT connected'))
 
 // error control
 const errorHandler = (err, req, res, next) => {

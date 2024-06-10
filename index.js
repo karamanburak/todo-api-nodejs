@@ -8,13 +8,15 @@
 const express = require('express')
 const app = express()
 
+// require('express-async-eror')
+
 require('dotenv').config()
 const PORT = process.env?.PORT || 8000
 const HOST = process.env?.HOST || '127.0.0.1'
 
-app.all('/', (req, res) => {
-    res.send('TODO API')
-})
+// app.all('/', (req, res) => {
+//     res.send('TODO API')
+// })
 
 // app.use('/todo', (req,res) => { // TODO + ALL URL
 //     res.send('TODO API')
@@ -71,6 +73,62 @@ const Todo = sequelize.define('todos', {
 sequelize.authenticate() // connect to db
     .then(() => console.log('Todo DB connected')).catch(() => console.log('Todo DB NOT connected'))
 
+//? CRUD operations
+const router = express.Router()
+
+
+// LIST todos (all)
+router.get('/todos', async (req, res) => {
+
+    // const data = await Todo.findAll()
+
+    const data = await Todo.findAndCountAll()
+    res.status(200).send({
+        error: false,
+        data: data
+    })
+})
+
+
+// CREATE todo
+router.post('/todos', async (req, res) => {
+
+    // const data = await Todo.create({
+    //     title: "task 1",
+    //     description: "description 1",
+    //     priority: -1,
+    //     isDone: true
+
+    // })
+
+
+    //? console.log(req.body);
+    const data = await Todo.create(req.body)
+    res.status(201).send({
+        error: false,
+        data: data
+    })
+})
+
+
+// READ todo with id
+
+router.get('/todos/:id', async (req, res) => {
+
+    const data = await Todo.findOne({where:{id:req.params.id}})
+
+    res.status(200).send({
+        error: false,
+        data: data
+    })
+})
+
+// UPDATE todo
+// DELETE todo
+app.use(router)
+
+
+
 // error control
 const errorHandler = (err, req, res, next) => {
     const errorStatusCode = res?.errorStatusCode || 500
@@ -82,6 +140,8 @@ const errorHandler = (err, req, res, next) => {
         // stack: err.stack
     })
 }
+
+app.use(errorHandler)
 
 app.listen(PORT, () => console.log(`server running http://${HOST}:${PORT}`))
 

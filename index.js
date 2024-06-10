@@ -2,15 +2,17 @@
 
 // npm i express dotenv
 // npm i express-async-error // async func. error control
+// npm install sequelize sqlite3
+
 
 const express = require('express')
 const app = express()
 
 require('dotenv').config()
-const PORT=process.env?.PORT ||  8000
-const HOST=process.env?.HOST || '127.0.0.1'
+const PORT = process.env?.PORT || 8000
+const HOST = process.env?.HOST || '127.0.0.1'
 
-app.all('/', (req,res) => {
+app.all('/', (req, res) => {
     res.send('TODO API')
 })
 
@@ -20,6 +22,29 @@ app.all('/', (req,res) => {
 
 //! json to obj and obj to json
 app.use(express.json())
+
+//? express to DB connection
+
+const { Sequelize, DataTypes } = require('sequelize')
+const sequelize = new Sequelize('sqlite:./db.sqlite3') // (RDMS: adress)
+
+//? Create MODEL
+// const Todo = sequelize.define('table / model name', {'model details'})
+const Todo = sequelize.define('todos', {
+
+    // id field auto generated
+    // id: {
+    //     type: DataTypes.BIGINT,
+    //     primaryKey: true,       // default false
+    //     unique: true,           // default false
+    //     autoIncrement: true,    // default false
+    //     allowNull: false,        // default true
+    //     comment: 'my comment',
+    //     field: 'custom name',
+    //     defaultValue: 'default value'
+    // }
+
+})
 
 
 // error control
@@ -34,5 +59,5 @@ const errorHandler = (err, req, res, next) => {
     })
 }
 
-app.listen(PORT,()=>console.log(`server running http://${HOST}:${PORT}`))
+app.listen(PORT, () => console.log(`server running http://${HOST}:${PORT}`))
 

@@ -8,7 +8,7 @@
 const express = require('express')
 const app = express()
 
-// require('express-async-eror')
+require('express-async-error')
 
 require('dotenv').config()
 const PORT = process.env?.PORT || 8000
@@ -77,7 +77,7 @@ sequelize.authenticate() // connect to db
 const router = express.Router()
 
 
-// LIST todos (all)
+//^ LIST todos (all)
 router.get('/todos', async (req, res) => {
 
     // const data = await Todo.findAll()
@@ -90,7 +90,7 @@ router.get('/todos', async (req, res) => {
 })
 
 
-// CREATE todo
+//^ CREATE todo
 router.post('/todos', async (req, res) => {
 
     // const data = await Todo.create({
@@ -111,20 +111,30 @@ router.post('/todos', async (req, res) => {
 })
 
 
-// READ todo with id
-
+//^ READ todo with id
 router.get('/todos/:id', async (req, res) => {
 
-    const data = await Todo.findOne({where:{id:req.params.id}})
-
+    // const data=  await Todo.findOne({where:{id:req.params.id}})
+    const data = await Todo.findByPk(req.params.id)
     res.status(200).send({
         error: false,
         data: data
     })
+
 })
 
-// UPDATE todo
-// DELETE todo
+//^ UPDATE todo
+router.put('/todos/:id', async (req, res) => {
+
+    const data = await Todo.update(req.body, { where: { id: req.params.id } })
+    res.status(200).send({
+        error: false,
+        data: data,
+        body: req.body
+    })
+})
+
+//^ DELETE todo
 app.use(router)
 
 

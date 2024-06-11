@@ -130,10 +130,22 @@ router.get('/todos/:id', async (req, res) => {
 //^ UPDATE todo
 router.put('/todos/:id', async (req, res) => {
 
+    let updatedDataBefore = await Todo.findByPk(req.params.id)
     const data = await Todo.update(req.body, { where: { id: req.params.id } })
-    res.status(200).send({
+    // const data=  await Todo.findOne(req.params.id})
+    console.log(req);
+
+    let updatedDataNext
+    if (data == 1) {
+        updatedDataNext = await Todo.findByPk(req.params.id)
+    }
+    res.status(201).send({
         error: false,
-        data: data,
+        data, // key value esit ise data:data seklinde yazmamiza gerek yok
+        // body: req.body,
+        updatedDataBefore,
+        updatedDataNext
+
     })
 })
 
@@ -144,7 +156,6 @@ router.delete('/todos/:id', async (req, res) => {
     res.status(204).send({
         error: false,
         data: data,
-        body: req.body
     })
 })
 

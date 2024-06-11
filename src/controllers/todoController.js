@@ -6,6 +6,7 @@
 
 const Todo = require('../models/todoModel.js')
 
+//? CRUD operations
 module.exports = {
     list: async (req, res) => {
 

@@ -20,32 +20,19 @@ const PORT = process.env?.PORT || 8000
 const HOST = process.env?.HOST || '127.0.0.1'
 
 
-//! json to obj and obj to json
+// app.all('/', (req, res) => {
+//     res.send('TODO API')
+// })
+
+// app.use('/todo', (req,res) => { // TODO + ALL URL
+//     res.send('TODO API')
+// })
+
+//! json to obj and obj to json //! yeri önemli yukarida olmali
 app.use(express.json())
 
-
-
-//? CRUD operations
-const router = express.Router()
-
-const todo = require('./src/controllers/todoController.js')
-
-//^ LIST todos (all)
-router.get('/todos', todo.list)
-
-//^ CREATE todo
-router.post('/todos', todo.create)
-
-//^ READ todo with id
-router.get('/todos/:id', todo.get)
-
-//^ UPDATE todo
-router.put('/todos/:id', todo.update)
-
-//^ DELETE todo
-router.delete('/todos/:id', todo.delete)
-
-app.use(router)
+//! ROUTER
+app.use(require('./src/routers/todoRouter.js'))
 
 
 

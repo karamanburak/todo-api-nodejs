@@ -26,6 +26,7 @@ const HOST = process.env?.HOST || '127.0.0.1'
 app.use(express.json())
 
 //? express to DB connection
+//https://sequelize.org/docs/v6/getting-started/
 
 const { Sequelize, DataTypes } = require('sequelize')
 const sequelize = new Sequelize('sqlite:./db.sqlite3') // (RDMS: adress)
@@ -34,8 +35,7 @@ const sequelize = new Sequelize('sqlite:./db.sqlite3') // (RDMS: adress)
 // const Todo = sequelize.define('table / model name', {'model details'})
 const Todo = sequelize.define('todos', {
 
-    // id field auto generated
-    // id: {
+    // field: {
     //     type: DataTypes.BIGINT,
     //     primaryKey: true,       // default false
     //     unique: true,           // default false
@@ -45,6 +45,9 @@ const Todo = sequelize.define('todos', {
     //     field: 'custom name',
     //     defaultValue: 'default value'
     // }
+
+    // id:{} // id field auto generated
+
 
     title: {
         type: DataTypes.STRING,
@@ -62,6 +65,7 @@ const Todo = sequelize.define('todos', {
     }
     //! createdDate & updatedDate auto generated
     // createdDate:{type:DataTypes.DATE},
+    // updatedDate:{type:DataTypes.DATE},
 
 })
 
@@ -130,11 +134,20 @@ router.put('/todos/:id', async (req, res) => {
     res.status(200).send({
         error: false,
         data: data,
-        body: req.body
     })
 })
 
 //^ DELETE todo
+router.delete('/todos/:id', async (req, res) => {
+
+    const data = await Todo.destroy({ where: { id: req.params.id } })
+    res.status(204).send({
+        error: false,
+        data: data,
+        body: req.body
+    })
+})
+
 app.use(router)
 
 

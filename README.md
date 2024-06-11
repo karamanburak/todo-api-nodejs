@@ -4,21 +4,22 @@
 - create db and table / model
 - CRUD
 
-
 ## Project Skeleton
 
 ```
 - todo project (folder)
 |
 ├── src
-│    ├── models
-│    │     └── todoModel.js
+│    ├── configs
+│    │     └── connectDB.js
 │    ├── controllers
 │    │     └── todoController.js
-│    ├── routers
-│    │     └── todoRouter.js
-│    └── middlewares
-│         └── errorHandler.js
+│    ├──  middlewares
+│    │      └── errorHandler.js
+│    ├── models
+│    │     └── todoModel.js
+│    └──  routers
+│           └── todoRouter.js
 ├── env.sample
 ├── index.js
 ├── LICENSE

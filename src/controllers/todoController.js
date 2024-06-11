@@ -70,10 +70,13 @@ module.exports = {
     delete: async (req, res) => {
 
         const data = await Todo.destroy({ where: { id: req.params.id } })
-        res.status(204).send({
-            error: false,
-            data: data,
-        })
+        console.log(data);
+
+            res.status(204).send({
+                error: false,
+                data: data,
+            })
+
     }
 
     //? bekleyen tasklar

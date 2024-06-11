@@ -20,22 +20,13 @@ const PORT = process.env?.PORT || 8000
 const HOST = process.env?.HOST || '127.0.0.1'
 
 
-// app.all('/', (req, res) => {
-//     res.send('TODO API')
-// })
-
-// app.use('/todo', (req,res) => { // TODO + ALL URL
-//     res.send('TODO API')
-// })
-
-//! json to obj and obj to json //! yeri önemli yukarida olmali
+//! json to obj and obj to json => yeri önemli yukarida olmali
 app.use(express.json())
 
 //! ROUTER
 app.use(require('./src/routers/todoRouter.js'))
 
-
-
+//! ERROR HANDLER
 app.use(require('./src/middlewares/errorHandler.js'))
 
 app.listen(PORT, () => console.log(`server running http://${HOST}:${PORT}`))

@@ -4,18 +4,7 @@
 - create db and table / model
 - CRUD
 
-# folder structure
-src
-    model
-        todo.js
-    controller
-        todo.js
-    router
-        todo.js
-    middlewares
-        errorHandler.js
-index.js
-    
+
 ## Project Skeleton
 
 ```

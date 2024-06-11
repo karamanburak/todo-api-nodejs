@@ -17,8 +17,8 @@
 │    │     └── todoController.js
 │    ├── routers
 │    │     └── todoRouter.js
-│    ├── middlewares
-│    │     └── errorHandler.js
+│    └── middlewares
+│         └── errorHandler.js
 ├── env.sample
 ├── index.js
 ├── LICENSE

@@ -12,11 +12,11 @@
 |
 ├── src
 │    ├── models
-│    │     └── todo.js
+│    │     └── todoModel.js
 │    ├── controllers
-│    │     └── todo.js
+│    │     └── todoController.js
 │    ├── routers
-│    │     └── todo.js
+│    │     └── todoRouter.js
 │    ├── middlewares
 │    │     └── errorHandler.js
 ├── env.sample
